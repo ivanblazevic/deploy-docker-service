@@ -17,7 +17,7 @@ runs:
   steps: 
     - name: Check if builder image is up to date with deps from the repo
       run: |
-        HOST=http://0.0.0.0
+        HOST=localhost
         SERVICE_NAME=${{ inputs.name }}
         DOCKER_IMAGE="$SERVICE_NAME:latest"
 
