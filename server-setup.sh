@@ -1,7 +1,10 @@
 # Server Setup v.1.0.2
 
 # How to setup server?
-
+# curl -O -L https://raw.githubusercontent.com/ivanblazevic/deploy-docker-service/master/server-setup.sh
+# chmod +x server-setup.sh
+# ./server-setup.sh
+# Follow the instructions....
 
 # Install docker
 echo "Installing docker..."
