@@ -17,21 +17,22 @@ runs:
   steps: 
     - name: Check if builder image is up to date with deps from the repo
       run: |
+        HOST=0.0.0.0
         SERVICE_NAME=${{ inputs.name }}
         DOCKER_IMAGE="$SERVICE_NAME:latest"
 
         echo "Service update is running for $SERVICE_NAME - $DOCKER_IMAGE"
 
         docker build ${{ inputs.buildArgs }} -t $SERVICE_NAME .
-        docker tag $SERVICE_NAME localhost:5000/$DOCKER_IMAGE
-        docker push localhost:5000/$DOCKER_IMAGE
+        docker tag $SERVICE_NAME $HOST:5000/$DOCKER_IMAGE
+        docker push $HOST:5000/$DOCKER_IMAGE
 
         if [ "$( docker service ps $SERVICE_NAME | grep -i running | wc -l )" == 1 ]; then
             echo "Service is running, updating..."
-            docker service update $SERVICE_NAME --image localhost:5000/$DOCKER_IMAGE
+            docker service update $SERVICE_NAME --image $HOST:5000/$DOCKER_IMAGE
         else
             echo "Service is not running, creating new one..."
-            CMD="docker service create --with-registry-auth --name $SERVICE_NAME ${{ inputs.additionalServiceCreationArgs }} localhost:5000/$DOCKER_IMAGE"
+            CMD="docker service create --with-registry-auth --name $SERVICE_NAME ${{ inputs.additionalServiceCreationArgs }} $HOST:5000/$DOCKER_IMAGE"
             
             echo $CMD
             eval $CMD
