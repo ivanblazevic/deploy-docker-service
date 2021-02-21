@@ -43,9 +43,6 @@ echo "Creating docker registry.."
 docker service create --with-registry-auth --name registry -d -p 5000:5000 registry:2
 echo "Done."
 
-echo "Set docker into swarm mode"
-docker swarm init
-
 # docker exec -it 39538f0d5f17 /bin/bash
 
 # Setup max number of file watcher as we are getting following error:
