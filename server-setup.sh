@@ -69,13 +69,12 @@ fi
 
 echo "Enter postgres password"
 read POSTGRES_PASSWORD
-docker service create --name dev-postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -p 5432:5432 --mount type=bind,source=$HOME/postgres-data,destination=/var/lib/postgresql/data postgres
+docker service create --name dev-postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD --network host --mount type=bind,source=$HOME/postgres-data,destination=/var/lib/postgresql/data postgres
 
 echo "Adding current user to the docker group"
 sudo usermod -aG docker $USER
 
 echo "Server setup is completed. Restart server to finish process."
-
 
 # How to create new DB if no restore takes place:
 #  - get postgres container id 
