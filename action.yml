@@ -20,6 +20,8 @@ runs:
         HOST=localhost
         SERVICE_NAME=${{ inputs.name }}
         DOCKER_IMAGE="$SERVICE_NAME:latest"
+        RED='\033[0;31m'
+        NC='\033[0m' # No Color
 
         echo "Service update is running for $SERVICE_NAME - $DOCKER_IMAGE"
 
@@ -36,7 +38,7 @@ runs:
             echo "Service is not running, creating new one..."
             CMD="docker service create --with-registry-auth --name $SERVICE_NAME ${{ inputs.additionalServiceCreationArgs }} $HOST:5000/$DOCKER_IMAGE"
             
-            echo $CMD
+            echo $RED$CMD$NC
             eval $CMD
         fi
         
