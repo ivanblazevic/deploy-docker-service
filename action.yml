@@ -27,6 +27,8 @@ runs:
         docker tag $SERVICE_NAME $HOST:5000/$DOCKER_IMAGE
         docker push $HOST:5000/$DOCKER_IMAGE
 
+        echo "Image pushed to the registry: $HOST:5000/$DOCKER_IMAGE"
+
         if [ "$( docker service ps $SERVICE_NAME | grep -i running | wc -l )" == 1 ]; then
             echo "Service is running, updating..."
             docker service update $SERVICE_NAME --image $HOST:5000/$DOCKER_IMAGE
