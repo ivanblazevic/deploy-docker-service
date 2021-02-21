@@ -6,6 +6,11 @@
 # ./server-setup.sh
 # Follow the instructions....
 
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo "Must run as sudo!"
+    exit
+fi
+
 echo "Setting up the server..."
 
 # Setup GitHub
