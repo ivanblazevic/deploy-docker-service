@@ -1,17 +1,16 @@
-# Server Setup v.1.0.2
-
 # How to setup server?
 # curl -O -L https://raw.githubusercontent.com/ivanblazevic/deploy-docker-service/master/server-setup.sh
 # chmod +x server-setup.sh
 # ./server-setup.sh
 # Follow the instructions....
+VERSION=1.1.0
+
+echo "Server setup v$VERSION"
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo "Must run as sudo!"
     exit
 fi
-
-echo "Setting up the server..."
 
 # Setup GitHub
 echo "Install GitHub actions, follow: https://github.com/organizations/preformator/settings/actions/add-new-runner?arch=x64&os=linux"
