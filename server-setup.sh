@@ -4,7 +4,7 @@
 # chmod +x server-setup.sh
 # ./server-setup.sh
 # Follow the instructions....
-VERSION=1.1.0
+VERSION=1.1.1
 
 echo "Server setup v$VERSION"
 
@@ -72,7 +72,7 @@ read POSTGRES_PASSWORD
 docker service create --name dev-postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD --network host --mount type=bind,source=$HOME/postgres-data,destination=/var/lib/postgresql/data postgres
 
 echo "Adding current user to the docker group"
-sudo usermod -aG docker $USER
+sudo usermod -aG docker "$USER"
 
 echo "Server setup is completed. Restart server to finish process."
 
