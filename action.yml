@@ -38,7 +38,7 @@ runs:
             echo "Service is not running, creating new one..."
             CMD="docker service create --with-registry-auth --name $SERVICE_NAME ${{ inputs.additionalServiceCreationArgs }} $HOST:5000/$DOCKER_IMAGE"
             
-            echo -e '$RED$CMD$NC'
+            echo -e "$RED$CMD$NC"
             eval $CMD
         fi
         
