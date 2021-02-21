@@ -39,16 +39,13 @@ fi
 
 # Setup registry
 echo "Creating docker registry.."
-
-docker service create --with-registry-auth --name registry -d -p 5000:5000 registry:2
-echo "Done."
-
-# docker exec -it 39538f0d5f17 /bin/bash
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+echo "Docker registry is up and running"
 
 # Setup max number of file watcher as we are getting following error:
 # "Error: ENOSPC: System limit for number of file watchers reached, watch '/public/tmp/448.json'"
 echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-    
+
 echo "Setting up postgres service, creating working directory..."
 mkdir $HOME/postgres-data
 
@@ -74,4 +71,15 @@ echo "Enter postgres password"
 read POSTGRES_PASSWORD
 docker service create --name dev-postgres -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -p 5432:5432 --mount type=bind,source=$HOME/postgres-data,destination=/var/lib/postgresql/data postgres
 
-echo "Server setup is completed."
+echo "Adding current user to the docker group"
+sudo usermod -aG docker $USER
+
+echo "Server setup is completed. Restart server to finish process."
+
+
+# How to create new DB if no restore takes place:
+#  - get postgres container id 
+# docker exec -it 5211209ee0b5 /bin/bash
+# psql -U postgres
+# CREATE DATABASE YOUR_DB_NAME;
+# \l  (to list all DBs)
