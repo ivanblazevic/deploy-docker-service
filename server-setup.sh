@@ -7,7 +7,8 @@ VERSION=1.1.0
 
 echo "Server setup v$VERSION"
 
-if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+if [[ $(/usr/bin/id -u) -ne 0 ]]
+then
     echo "Must run as sudo!"
     exit
 fi
