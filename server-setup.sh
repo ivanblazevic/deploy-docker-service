@@ -21,7 +21,8 @@ fi
 
 # Setup registry
 echo "Creating docker registry.."
-docker service create --name registry -d -p 5000:5000 registry:2
+
+docker service create --with-registry-auth --name registry -d -p 5000:5000 registry:2
 echo "Done."
 
 # Setup GitHub
