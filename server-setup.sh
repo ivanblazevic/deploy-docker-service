@@ -1,3 +1,4 @@
+#!/bin/bash
 # How to setup server?
 # curl -O -L https://raw.githubusercontent.com/ivanblazevic/deploy-docker-service/master/server-setup.sh
 # chmod +x server-setup.sh
@@ -7,8 +8,7 @@ VERSION=1.1.0
 
 echo "Server setup v$VERSION"
 
-if [[ $(/usr/bin/id -u) -ne 0 ]]
-then
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo "Must run as sudo!"
     exit
 fi
@@ -17,7 +17,7 @@ fi
 echo "Install GitHub actions, follow: https://github.com/organizations/preformator/settings/actions/add-new-runner?arch=x64&os=linux"
 echo $'Run GitHub actions as a service:\n./svc.sh install\n./svc.sh start'
 read -r -p "Are GitLab actions installed and running as a service? [Y/n] " response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
+if [[ $response =~ ^[Yy]$ ]]
 then
     echo "Proceeding..."
 else
@@ -56,7 +56,7 @@ echo "Backup directory with following command: tar -zcvf postgres-data.tar.gz $H
 echo "Restore backup with following command: tar -zxvf postgres-data.tar.gz"
 
 read -r -p "Did you restored postgres data into $HOME/postgres-data ? [Y/n] " response
-if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]
+if [[ $response =~ ^[Yy]$ ]]
 then
     echo "Proceeding..."
 
